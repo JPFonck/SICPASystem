@@ -1,0 +1,87 @@
+﻿@model SICPASystem.Models.EnterpriseModel
+
+@{
+    ViewData["Title"] = "Create new Enterprise";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    @if(TempData["mensaje"]!=null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @TempData["mensaje"]
+            <button type="button" class="close" date-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Crear nuevo libro</h3>
+        </div>
+        
+    </div>
+
+    <div class="row">
+       <div class="col-sm-10">
+           <form method="post" asp-action="Create">
+               <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+               <div class="form-group">
+                   <label asp-for="name" class="control-label" />
+                   <input asp-for="name" class="form-control" />
+                   <span asp-validation-for="name" class="text-danger"/>
+               </div>
+
+               <div class="form-group">
+                   <label asp-for="address" class="control-label" />
+                   <input asp-for="address" class="form-control" />
+                   <span asp-validation-for="address" class="text-danger" />
+               </div>
+
+               <div class="form-group">
+                   <label asp-for="phone" class="control-label" />
+                   <input asp-for="phone" class="form-control" />
+                   <span asp-validation-for="phone" class="text-danger" />
+               </div>
+
+               <div class="form-group">
+                   <label asp-for="status" class="control-label" />
+                   <input asp-for="status" class="form-control" />
+                   <span asp-validation-for="status" class="text-danger" />
+               </div>
+
+               <div class="form-group">
+                   <label asp-for="modified_by" class="control-label" />
+                   <input asp-for="modified_by" class="form-control" />
+               </div>
+
+               <div class="form-group">
+                   <label asp-for="modified_date" class="control-label" />
+                   <input asp-for="modified_date" class="form-control" />
+               </div>
+
+               <div class="form-group">
+                   <label asp-for="created_by" class="control-label" />
+                   <input asp-for="created_by" class="form-control" />
+               </div>
+
+               <div class="form-group">
+                   <label asp-for="created_date" class="control-label" />
+                   <input asp-for="created_date" class="form-control" />
+               </div>
+
+               <div class="form-group">
+                   <input type="submit" value="Create Enterprise" class="btn btn-primary" />
+               </div>
+           </form>
+       </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    @{ <partial name="_ValidationScriptsPartial"/>}
+}
+
