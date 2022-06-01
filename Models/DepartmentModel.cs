@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SICPASystem.Models
 {
-    public class EnterpriseModel
+    public class DepartmentModel
     {
         [Key]
         public int Id { get; set; }
 
-        [Display(Name ="Created by")]
+        [Display(Name = "Created by")]
         public string created_by { get; set; }
 
         [DataType(DataType.Date)]
@@ -29,9 +29,9 @@ namespace SICPASystem.Models
         [Display(Name = "Status")]
         public bool status { get; set; }
 
-        [Required(ErrorMessage = "Address is required")]
-        [Display(Name = "Address")]
-        public string address { get; set; }
+        [Required(ErrorMessage = "Description is required")]
+        [Display(Name = "Description")]
+        public string description { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
         [Display(Name = "Name")]
@@ -41,6 +41,6 @@ namespace SICPASystem.Models
         [Display(Name = "Phone")]
         public string phone { get; set; }
 
-        public virtual ICollection<DepartmentModel> Department { get; set; }
+        public virtual EnterpriseModel Enterprise { get; set; }
     }
 }

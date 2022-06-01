@@ -15,5 +15,6 @@ namespace SICPASystem.Data
         }
 
         public DbSet<EnterpriseModel> Enterprise { get; set; }
+        public DbSet<DepartmentModel> Department { get; set; }
     }
 }
