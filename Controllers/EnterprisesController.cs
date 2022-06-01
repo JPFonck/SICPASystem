@@ -33,6 +33,7 @@ namespace SICPASystem.Controllers
 
         //Http Post Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(EnterpriseModel enterprise)
         {
             if (ModelState.IsValid)
@@ -44,6 +45,80 @@ namespace SICPASystem.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        //Http Get Create
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var enterprise = _context.Enterprise.Find(id);
+
+            if (enterprise == null)
+            {
+                return NotFound();
+            }
+
+            return View(enterprise);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(EnterpriseModel enterprise)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Enterprise.Update(enterprise);
+                _context.SaveChanges();
+
+                TempData["mensaje"] = "Enterprise updated";
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        //Http Get Delete
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var enterprise = _context.Enterprise.Find(id);
+
+            if (enterprise == null)
+            {
+                return NotFound();
+            }
+
+            return View(enterprise);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteEnterprise(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var enterprise = _context.Enterprise.Find(id);
+
+            if(enterprise== null)
+            {
+                return NotFound();
+            }
+
+            _context.Enterprise.Remove(enterprise);
+            _context.SaveChanges();
+
+            TempData["mensaje"] = "Enterprise deleted";
+            return RedirectToAction("Index");
         }
     }
 }

@@ -6,6 +6,17 @@
 }
 
 <div class="container">
+
+    @if (TempData["mensaje"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @TempData["mensaje"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
     <div class="row">
         <div class="col-sm-6">
             <h3>Enterprises List</h3>
@@ -34,30 +45,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var item in Model)
+                    @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.name</td>
-                        <td>@item.address</td>
-                        <td>@item.phone</td>
-                        <td>@item.status</td>
-                        <td>@item.modified_by</td>
-                        <td>@item.modified_date</td>
-                        <td>@item.created_by</td>
-                        <td>@item.created_date</td>
-                        <td>
-                            <a asp-controller="Enterprises" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                            <a asp-controller="Enterprises" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.name</td>
+                            <td>@item.address</td>
+                            <td>@item.phone</td>
+                            <td>@item.status</td>
+                            <td>@item.modified_by</td>
+                            <td>@item.modified_date</td>
+                            <td>@item.created_by</td>
+                            <td>@item.created_date</td>
+                            <td>
+                                <a asp-controller="Enterprises" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                <a asp-controller="Enterprises" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
         }
         else
         {
-            <p>No existen registros</p>
+            <p>No records</p>
         }
     </div>
 </div>
