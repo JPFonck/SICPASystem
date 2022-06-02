@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SICPASystem.Models
 {
-    public class DepartmentModel
+    public class Department_EmployeeModel
     {
         [Key]
         public int Id { get; set; }
@@ -30,24 +30,16 @@ namespace SICPASystem.Models
         [Display(Name = "Status")]
         public bool status { get; set; }
 
-        [Required(ErrorMessage = "Description is required")]
-        [Display(Name = "Description")]
-        public string description { get; set; }
-
-        [Required(ErrorMessage = "Name is required")]
-        [Display(Name = "Name")]
-        public string name { get; set; }
-
-        [Required(ErrorMessage = "Phone is required")]
-        [Display(Name = "Phone")]
-        public string phone { get; set; }
+        [Required]
+        [Display(Name = "Department")]
+        [ForeignKey("Department")]
+        public int id_department{ get; set; }
+        public virtual DepartmentModel Department { get; set; }
 
         [Required]
-        [Display(Name = "Enterprise")]
-        [ForeignKey("Enterprise")]
-        public int id_enterprise { get; set; }
-
-        public virtual EnterpriseModel Enterprise { get; set; }
-        public virtual ICollection<Department_EmployeeModel> Department_Employee { get; set; }
+        [Display(Name = "Employee")]
+        [ForeignKey("Employee")]
+        public int id_employee { get; set; }
+        public virtual EmployeeModel Employee { get; set; }
     }
 }

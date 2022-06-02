@@ -1,4 +1,4 @@
-﻿@model SICPASystem.Models.DepartmentModel
+﻿@model SICPASystem.Models.Department_EmployeeModel
 
 @{
     ViewData["Title"] = "Details";
@@ -8,7 +8,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>DepartmentModel</h4>
+    <h4>Department_EmployeeModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -42,28 +42,16 @@
             @Html.DisplayFor(model => model.status)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.description)
+            @Html.DisplayNameFor(model => model.Department)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.description)
+            @Html.DisplayFor(model => model.Department.description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
+            @Html.DisplayNameFor(model => model.Employee)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.phone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Enterprise)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Enterprise.name)
+            @Html.DisplayFor(model => model.Employee.age)
         </dd>
     </dl>
 </div>

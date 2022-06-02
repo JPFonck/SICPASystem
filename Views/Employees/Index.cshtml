@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SICPASystem.Models.DepartmentModel>
+﻿@model IEnumerable<SICPASystem.Models.EmployeeModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -29,16 +29,19 @@
                 @Html.DisplayNameFor(model => model.status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.description)
+                @Html.DisplayNameFor(model => model.age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.phone)
+                @Html.DisplayNameFor(model => model.position)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Enterprise)
+                @Html.DisplayNameFor(model => model.surname)
             </th>
             <th></th>
         </tr>
@@ -62,16 +65,19 @@
                 @Html.DisplayFor(modelItem => item.status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.description)
+                @Html.DisplayFor(modelItem => item.age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.phone)
+                @Html.DisplayFor(modelItem => item.position)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Enterprise.name)
+                @Html.DisplayFor(modelItem => item.surname)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SICPASystem.Models
 {
-    public class DepartmentModel
+    public class EmployeeModel
     {
         [Key]
         public int Id { get; set; }
@@ -30,24 +29,26 @@ namespace SICPASystem.Models
         [Display(Name = "Status")]
         public bool status { get; set; }
 
-        [Required(ErrorMessage = "Description is required")]
-        [Display(Name = "Description")]
-        public string description { get; set; }
+        [Required(ErrorMessage = "Age is required")]
+        [Display(Name = "Age")]
+        public string age { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [Display(Name = "Email")]
+        public string email { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
         [Display(Name = "Name")]
         public string name { get; set; }
 
-        [Required(ErrorMessage = "Phone is required")]
-        [Display(Name = "Phone")]
-        public string phone { get; set; }
+        [Required(ErrorMessage = "Position is required")]
+        [Display(Name = "Position")]
+        public string position { get; set; }
 
-        [Required]
-        [Display(Name = "Enterprise")]
-        [ForeignKey("Enterprise")]
-        public int id_enterprise { get; set; }
+        [Required(ErrorMessage = "Surname is required")]
+        [Display(Name = "Surname")]
+        public string surname { get; set; }
 
-        public virtual EnterpriseModel Enterprise { get; set; }
         public virtual ICollection<Department_EmployeeModel> Department_Employee { get; set; }
     }
 }

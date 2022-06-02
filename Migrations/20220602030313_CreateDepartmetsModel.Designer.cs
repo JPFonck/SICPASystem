@@ -10,8 +10,8 @@ using SICPASystem.Data;
 namespace SICPASystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220601030614_Create Department model")]
-    partial class CreateDepartmentmodel
+    [Migration("20220602030313_CreateDepartmetsModel")]
+    partial class CreateDepartmetsModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,6 @@ namespace SICPASystem.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("EnterpriseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("created_by")
                         .HasColumnType("nvarchar(max)");
 
@@ -40,6 +37,9 @@ namespace SICPASystem.Migrations
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("id_enterprise")
+                        .HasColumnType("int");
 
                     b.Property<string>("modified_by")
                         .HasColumnType("nvarchar(max)");
@@ -60,7 +60,7 @@ namespace SICPASystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnterpriseId");
+                    b.HasIndex("id_enterprise");
 
                     b.ToTable("Department");
                 });
@@ -108,7 +108,9 @@ namespace SICPASystem.Migrations
                 {
                     b.HasOne("SICPASystem.Models.EnterpriseModel", "Enterprise")
                         .WithMany("Department")
-                        .HasForeignKey("EnterpriseId");
+                        .HasForeignKey("id_enterprise")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Enterprise");
                 });

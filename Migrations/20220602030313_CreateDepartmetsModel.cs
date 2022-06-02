@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SICPASystem.Migrations
 {
-    public partial class CreateDepartmentmodel : Migration
+    public partial class CreateDepartmetsModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,23 +21,23 @@ namespace SICPASystem.Migrations
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EnterpriseId = table.Column<int>(type: "int", nullable: true)
+                    id_enterprise = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Department", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Department_Enterprise_EnterpriseId",
-                        column: x => x.EnterpriseId,
+                        name: "FK_Department_Enterprise_id_enterprise",
+                        column: x => x.id_enterprise,
                         principalTable: "Enterprise",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Department_EnterpriseId",
+                name: "IX_Department_id_enterprise",
                 table: "Department",
-                column: "EnterpriseId");
+                column: "id_enterprise");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

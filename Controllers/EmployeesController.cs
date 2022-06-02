@@ -10,23 +10,22 @@ using SICPASystem.Models;
 
 namespace SICPASystem.Controllers
 {
-    public class DepartmentsController : Controller
+    public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DepartmentsController(ApplicationDbContext context)
+        public EmployeesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Departments
+        // GET: Employees
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Department.Include(d => d.Enterprise);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Employee.ToListAsync());
         }
 
-        // GET: Departments/Details/5
+        // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,39 @@ namespace SICPASystem.Controllers
                 return NotFound();
             }
 
-            var departmentModel = await _context.Department
-                .Include(d => d.Enterprise)
+            var employeeModel = await _context.Employee
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (departmentModel == null)
+            if (employeeModel == null)
             {
                 return NotFound();
             }
 
-            return View(departmentModel);
+            return View(employeeModel);
         }
 
-        // GET: Departments/Create
+        // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["id_enterprise"] = new SelectList(_context.Enterprise, "Id", "name");
             return View();
         }
 
-        // POST: Departments/Create
+        // POST: Employees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,created_by,created_date,modified_by,modified_date,status,description,name,phone,id_enterprise")] DepartmentModel departmentModel)
+        public async Task<IActionResult> Create([Bind("Id,created_by,created_date,modified_by,modified_date,status,age,email,name,position,surname")] EmployeeModel employeeModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(departmentModel);
+                _context.Add(employeeModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["id_enterprise"] = new SelectList(_context.Enterprise, "Id", "address", departmentModel.id_enterprise);
-            return View(departmentModel);
+            return View(employeeModel);
         }
 
-        // GET: Departments/Edit/5
+        // GET: Employees/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +73,22 @@ namespace SICPASystem.Controllers
                 return NotFound();
             }
 
-            var departmentModel = await _context.Department.FindAsync(id);
-            if (departmentModel == null)
+            var employeeModel = await _context.Employee.FindAsync(id);
+            if (employeeModel == null)
             {
                 return NotFound();
             }
-            ViewData["id_enterprise"] = new SelectList(_context.Enterprise, "Id", "name", departmentModel.id_enterprise);
-            return View(departmentModel);
+            return View(employeeModel);
         }
 
-        // POST: Departments/Edit/5
+        // POST: Employees/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,created_by,created_date,modified_by,modified_date,status,description,name,phone,id_enterprise")] DepartmentModel departmentModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,created_by,created_date,modified_by,modified_date,status,age,email,name,position,surname")] EmployeeModel employeeModel)
         {
-            if (id != departmentModel.Id)
+            if (id != employeeModel.Id)
             {
                 return NotFound();
             }
@@ -102,12 +97,12 @@ namespace SICPASystem.Controllers
             {
                 try
                 {
-                    _context.Update(departmentModel);
+                    _context.Update(employeeModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartmentModelExists(departmentModel.Id))
+                    if (!EmployeeModelExists(employeeModel.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +113,10 @@ namespace SICPASystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["id_enterprise"] = new SelectList(_context.Enterprise, "Id", "name", departmentModel.id_enterprise);
-            return View(departmentModel);
+            return View(employeeModel);
         }
 
-        // GET: Departments/Delete/5
+        // GET: Employees/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +124,30 @@ namespace SICPASystem.Controllers
                 return NotFound();
             }
 
-            var departmentModel = await _context.Department
-                .Include(d => d.Enterprise)
+            var employeeModel = await _context.Employee
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (departmentModel == null)
+            if (employeeModel == null)
             {
                 return NotFound();
             }
 
-            return View(departmentModel);
+            return View(employeeModel);
         }
 
-        // POST: Departments/Delete/5
+        // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var departmentModel = await _context.Department.FindAsync(id);
-            _context.Department.Remove(departmentModel);
+            var employeeModel = await _context.Employee.FindAsync(id);
+            _context.Employee.Remove(employeeModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartmentModelExists(int id)
+        private bool EmployeeModelExists(int id)
         {
-            return _context.Department.Any(e => e.Id == id);
+            return _context.Employee.Any(e => e.Id == id);
         }
     }
 }
