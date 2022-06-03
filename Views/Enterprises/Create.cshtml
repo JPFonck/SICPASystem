@@ -11,63 +11,76 @@
         <div class="col-sm-12">
             <h3>Create new enterprise</h3>
         </div>
-        
+
     </div>
+    <hr />
 
     <div class="row">
-       <div class="col-sm-10">
-           <form method="post" asp-action="Create">
-               <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-sm-10">
+            <form method="post" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-               <div class="form-group">
-                   <label asp-for="name" class="control-label"></label>
-                   <input asp-for="name" class="form-control" />
-                   <span asp-validation-for="name" class="text-danger"/>
-               </div>
+                <div class="form-group">
+                    <label asp-for="name" class="control-label"></label>
+                    <input asp-for="name" class="form-control" />
+                    <span asp-validation-for="name" class="text-danger" />
+                </div>
 
-               <div class="form-group">
-                   <label asp-for="address" class="control-label"></label>
-                   <input asp-for="address" class="form-control" />
-                   <span asp-validation-for="address" class="text-danger" />
-               </div>
+                <div class="form-group">
+                    <label asp-for="address" class="control-label"></label>
+                    <input asp-for="address" class="form-control" />
+                    <span asp-validation-for="address" class="text-danger" />
+                </div>
 
-               <div class="form-group">
-                   <label asp-for="phone" class="control-label"></label>
-                   <input asp-for="phone" class="form-control" />
-                   <span asp-validation-for="phone" class="text-danger" />
-               </div>
+                <div class="form-group">
+                    <label asp-for="phone" class="control-label"></label>
+                    <input asp-for="phone" class="form-control" />
+                    <span asp-validation-for="phone" class="text-danger" />
+                </div>
 
-               <div class="form-group">
-                   <label asp-for="status" class="control-label"></label>
-                   <input asp-for="status" class="form-control" />
-                   <span asp-validation-for="status" class="text-danger" />
-               </div>
+                <div class="form-group">
+                    <label asp-for="status" class="control-label"></label>
+                </div>
+                <div class="form-group" id="RadioButtonStatus">
+                    <label class="control-label col-2" style="text-align:right">Active</label>
+                    @Html.RadioButtonFor(m => m.status, true, new { id = "True" })
 
-               <div class="form-group">
-                   <label asp-for="modified_by" class="control-label"></label>
-                   <input asp-for="modified_by" class="form-control" />
-               </div>
+                    <label class="control-label col-2" style="text-align:right">Inactive</label>
+                    @Html.RadioButtonFor(m => m.status, false, new { id = "False" })
 
-               <div class="form-group">
-                   <label asp-for="modified_date" class="control-label"></label>
-                   <input asp-for="modified_date" class="form-control" />
-               </div>
+                    <br />
+                    <span asp-validation-for="status" class="text-danger" />
+                </div>
 
-               <div class="form-group">
-                   <label asp-for="created_by" class="control-label"></label>
-                   <input asp-for="created_by" class="form-control" />
-               </div>
+                @*<div class="form-group">
+                        <label asp-for="modified_by" class="control-label"></label>
+                        <input asp-for="modified_by" class="form-control" />
+                    </div>
 
-               <div class="form-group">
-                   <label asp-for="created_date" class="control-label"></label>
-                   <input asp-for="created_date" class="form-control" />
-               </div>
+                    <div class="form-group">
+                        <label asp-for="modified_date" class="control-label"></label>
+                        <input asp-for="modified_date" class="form-control" />
+                    </div>
 
-               <div class="form-group">
-                   <input type="submit" value="Create Enterprise" class="btn btn-primary" />
-               </div>
-           </form>
-       </div>
+                    <div class="form-group">
+                        <label asp-for="created_by" class="control-label"></label>
+                        <input asp-for="created_by" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="created_date" class="control-label"></label>
+                        <input asp-for="created_date" class="form-control" />
+                    </div>*@
+                <hr />
+                <div class="form-group">
+                    <input type="submit" value="Create Enterprise" class="btn btn-primary" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
     </div>
 </div>
 

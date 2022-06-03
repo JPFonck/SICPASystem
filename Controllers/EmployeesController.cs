@@ -13,10 +13,14 @@ namespace SICPASystem.Controllers
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private string currentUser;
+        private DateTime now;
 
         public EmployeesController(ApplicationDbContext context)
         {
             _context = context;
+            currentUser = Environment.MachineName;
+            now = DateTime.Now;
         }
 
         // GET: Employees
@@ -54,8 +58,14 @@ namespace SICPASystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,created_by,created_date,modified_by,modified_date,status,age,email,name,position,surname")] EmployeeModel employeeModel)
+        public async Task<IActionResult> Create(EmployeeModel employeeModel)
         {
+            employeeModel.created_by = currentUser;
+            employeeModel.created_date = now;
+
+            employeeModel.modified_by = currentUser;
+            employeeModel.modified_date = now;
+
             if (ModelState.IsValid)
             {
                 _context.Add(employeeModel);
@@ -86,12 +96,15 @@ namespace SICPASystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,created_by,created_date,modified_by,modified_date,status,age,email,name,position,surname")] EmployeeModel employeeModel)
+        public async Task<IActionResult> Edit(int id, EmployeeModel employeeModel)
         {
             if (id != employeeModel.Id)
             {
                 return NotFound();
             }
+
+            employeeModel.modified_by = currentUser;
+            employeeModel.modified_date = now;
 
             if (ModelState.IsValid)
             {

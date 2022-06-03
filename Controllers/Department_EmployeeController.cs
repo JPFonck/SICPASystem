@@ -13,10 +13,14 @@ namespace SICPASystem.Controllers
     public class Department_EmployeeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private string currentUser;
+        private DateTime now;
 
         public Department_EmployeeController(ApplicationDbContext context)
         {
             _context = context;
+            currentUser = Environment.MachineName;
+            now = DateTime.Now;
         }
 
         // GET: Department_Employee
@@ -49,8 +53,8 @@ namespace SICPASystem.Controllers
         // GET: Department_Employee/Create
         public IActionResult Create()
         {
-            ViewData["id_department"] = new SelectList(_context.Department, "Id", "description");
-            ViewData["id_employee"] = new SelectList(_context.Employee, "Id", "age");
+            ViewData["id_department"] = new SelectList(_context.Department, "Id", "name");
+            ViewData["id_employee"] = new SelectList(_context.Employee, "Id", "name");
             return View();
         }
 
@@ -59,16 +63,23 @@ namespace SICPASystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,created_by,created_date,modified_by,modified_date,status,id_department,id_employee")] Department_EmployeeModel department_EmployeeModel)
+        public async Task<IActionResult> Create(Department_EmployeeModel department_EmployeeModel)
         {
+            department_EmployeeModel.created_by = currentUser;
+            department_EmployeeModel.created_date = now;
+
+            department_EmployeeModel.modified_by = currentUser;
+            department_EmployeeModel.modified_date = now;
+
             if (ModelState.IsValid)
             {
                 _context.Add(department_EmployeeModel);
                 await _context.SaveChangesAsync();
+                TempData["mensaje"] = "Assignment Saved";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["id_department"] = new SelectList(_context.Department, "Id", "description", department_EmployeeModel.id_department);
-            ViewData["id_employee"] = new SelectList(_context.Employee, "Id", "age", department_EmployeeModel.id_employee);
+            ViewData["id_department"] = new SelectList(_context.Department, "Id", "name", department_EmployeeModel.id_department);
+            ViewData["id_employee"] = new SelectList(_context.Employee, "Id", "name", department_EmployeeModel.id_employee);
             return View(department_EmployeeModel);
         }
 
@@ -85,8 +96,8 @@ namespace SICPASystem.Controllers
             {
                 return NotFound();
             }
-            ViewData["id_department"] = new SelectList(_context.Department, "Id", "description", department_EmployeeModel.id_department);
-            ViewData["id_employee"] = new SelectList(_context.Employee, "Id", "age", department_EmployeeModel.id_employee);
+            ViewData["id_department"] = new SelectList(_context.Department, "Id", "name", department_EmployeeModel.id_department);
+            ViewData["id_employee"] = new SelectList(_context.Employee, "Id", "name", department_EmployeeModel.id_employee);
             return View(department_EmployeeModel);
         }
 
@@ -95,12 +106,15 @@ namespace SICPASystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,created_by,created_date,modified_by,modified_date,status,id_department,id_employee")] Department_EmployeeModel department_EmployeeModel)
+        public async Task<IActionResult> Edit(int id, Department_EmployeeModel department_EmployeeModel)
         {
             if (id != department_EmployeeModel.Id)
             {
                 return NotFound();
             }
+
+            department_EmployeeModel.modified_by = currentUser;
+            department_EmployeeModel.modified_date = now;
 
             if (ModelState.IsValid)
             {
@@ -108,6 +122,7 @@ namespace SICPASystem.Controllers
                 {
                     _context.Update(department_EmployeeModel);
                     await _context.SaveChangesAsync();
+                    TempData["mensaje"] = "Assignment edited";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -122,8 +137,8 @@ namespace SICPASystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["id_department"] = new SelectList(_context.Department, "Id", "description", department_EmployeeModel.id_department);
-            ViewData["id_employee"] = new SelectList(_context.Employee, "Id", "age", department_EmployeeModel.id_employee);
+            ViewData["id_department"] = new SelectList(_context.Department, "Id", "name", department_EmployeeModel.id_department);
+            ViewData["id_employee"] = new SelectList(_context.Employee, "Id", "name", department_EmployeeModel.id_employee);
             return View(department_EmployeeModel);
         }
 
@@ -155,6 +170,7 @@ namespace SICPASystem.Controllers
             var department_EmployeeModel = await _context.Department_Employees.FindAsync(id);
             _context.Department_Employees.Remove(department_EmployeeModel);
             await _context.SaveChangesAsync();
+            TempData["mensaje"] = "Assignment deleted";
             return RedirectToAction(nameof(Index));
         }
 

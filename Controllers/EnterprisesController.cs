@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SICPASystem.Data;
 using SICPASystem.Models;
 using System;
@@ -11,10 +12,14 @@ namespace SICPASystem.Controllers
     public class EnterprisesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private string currentUser;
+        private DateTime now;
 
         public EnterprisesController(ApplicationDbContext context)
         {
             _context = context;
+            currentUser = Environment.MachineName;
+            now = DateTime.Now;
         }
 
         //Http Get Index
@@ -36,6 +41,13 @@ namespace SICPASystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(EnterpriseModel enterprise)
         {
+           
+            enterprise.created_by = currentUser;
+            enterprise.created_date = now;
+
+            enterprise.modified_by = currentUser;
+            enterprise.modified_date = now;
+
             if (ModelState.IsValid)
             {
                 _context.Enterprise.Add(enterprise);
@@ -69,6 +81,9 @@ namespace SICPASystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(EnterpriseModel enterprise)
         {
+            enterprise.modified_by = currentUser;
+            enterprise.modified_date = now;
+
             if (ModelState.IsValid)
             {
                 _context.Enterprise.Update(enterprise);
@@ -119,6 +134,24 @@ namespace SICPASystem.Controllers
 
             TempData["mensaje"] = "Enterprise deleted";
             return RedirectToAction("Index");
+        }
+
+        // GET: Departments/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var enterpriseModel = await _context.Enterprise
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (enterpriseModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(enterpriseModel);
         }
     }
 }

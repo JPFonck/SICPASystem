@@ -5,49 +5,40 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Create new assignment</h1>
 
-<h4>Department_EmployeeModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="created_by" class="control-label"></label>
-                <input asp-for="created_by" class="form-control" />
-                <span asp-validation-for="created_by" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="created_date" class="control-label"></label>
-                <input asp-for="created_date" class="form-control" />
-                <span asp-validation-for="created_date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="modified_by" class="control-label"></label>
-                <input asp-for="modified_by" class="form-control" />
-                <span asp-validation-for="modified_by" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="modified_date" class="control-label"></label>
-                <input asp-for="modified_date" class="form-control" />
-                <span asp-validation-for="modified_date" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="status" /> @Html.DisplayNameFor(model => model.status)
-                </label>
-            </div>
+
             <div class="form-group">
                 <label asp-for="id_department" class="control-label"></label>
-                <select asp-for="id_department" class ="form-control" asp-items="ViewBag.id_department"></select>
+                <select asp-for="id_department" class="form-control" asp-items="ViewBag.id_department"></select>
             </div>
+
             <div class="form-group">
                 <label asp-for="id_employee" class="control-label"></label>
-                <select asp-for="id_employee" class ="form-control" asp-items="ViewBag.id_employee"></select>
+                <select asp-for="id_employee" class="form-control" asp-items="ViewBag.id_employee"></select>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="status" class="control-label"></label>
+            </div>
+            <div class="form-group" id="RadioButtonStatus">
+                <label class="control-label col-3" style="text-align:right">Active</label>
+                @Html.RadioButtonFor(m => m.status, true, new { id = "True" })
+
+                <label class="control-label col-3" style="text-align:right">Inactive</label>
+                @Html.RadioButtonFor(m => m.status, false, new { id = "False" })
+
+                <br />
+                <span asp-validation-for="status" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create Assignment" class="btn btn-primary" />
             </div>
         </form>
     </div>

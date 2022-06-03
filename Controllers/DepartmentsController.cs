@@ -13,10 +13,14 @@ namespace SICPASystem.Controllers
     public class DepartmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private string currentUser;
+        private DateTime now;
 
         public DepartmentsController(ApplicationDbContext context)
         {
             _context = context;
+            currentUser = Environment.MachineName;
+            now = DateTime.Now;
         }
 
         // GET: Departments
@@ -57,15 +61,22 @@ namespace SICPASystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,created_by,created_date,modified_by,modified_date,status,description,name,phone,id_enterprise")] DepartmentModel departmentModel)
+        public async Task<IActionResult> Create(DepartmentModel departmentModel)
         {
+            departmentModel.created_by = currentUser;
+            departmentModel.created_date = now;
+
+            departmentModel.modified_by = currentUser;
+            departmentModel.modified_date = now;
+
             if (ModelState.IsValid)
             {
                 _context.Add(departmentModel);
                 await _context.SaveChangesAsync();
+                TempData["mensaje"] = "Department Saved";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["id_enterprise"] = new SelectList(_context.Enterprise, "Id", "address", departmentModel.id_enterprise);
+            ViewData["id_enterprise"] = new SelectList(_context.Enterprise, "Id", "name", departmentModel.id_enterprise);
             return View(departmentModel);
         }
 
@@ -91,12 +102,15 @@ namespace SICPASystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,created_by,created_date,modified_by,modified_date,status,description,name,phone,id_enterprise")] DepartmentModel departmentModel)
+        public async Task<IActionResult> Edit(int id, DepartmentModel departmentModel)
         {
             if (id != departmentModel.Id)
             {
                 return NotFound();
             }
+
+            departmentModel.modified_by = currentUser;
+            departmentModel.modified_date = now;
 
             if (ModelState.IsValid)
             {
@@ -104,6 +118,7 @@ namespace SICPASystem.Controllers
                 {
                     _context.Update(departmentModel);
                     await _context.SaveChangesAsync();
+                    TempData["mensaje"] = "Department updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {

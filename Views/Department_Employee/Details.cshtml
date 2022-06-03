@@ -5,57 +5,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Assignment Details</h1>
 
 <div>
-    <h4>Department_EmployeeModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.created_by)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.created_by)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.created_date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.created_date)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.modified_by)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.modified_by)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.modified_date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.modified_date)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.status)
-        </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Department)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Department.description)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Department.name)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Employee)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Employee.age)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.name) @Html.DisplayFor(model => model.Employee.surname)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+        @if (Model.status)
+        {
+            <dd class="col-sm-10">
+                Active
+            </dd>
+        }
+        else
+        {
+            <dd class="col-sm-10">
+                Inactive
+            </dd>
+        }
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.modified_by)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.modified_by)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.modified_date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.modified_date)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.created_by)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.created_by)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.created_date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.created_date)
         </dd>
     </dl>
 </div>
+<hr />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+</div>
+<br />
+<div>
     <a asp-action="Index">Back to List</a>
 </div>

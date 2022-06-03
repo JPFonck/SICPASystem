@@ -5,39 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Edit Department</h1>
 
-<h4>DepartmentModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="created_by" class="control-label"></label>
-                <input asp-for="created_by" class="form-control" />
-                <span asp-validation-for="created_by" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="created_date" class="control-label"></label>
-                <input asp-for="created_date" class="form-control" />
-                <span asp-validation-for="created_date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="modified_by" class="control-label"></label>
-                <input asp-for="modified_by" class="form-control" />
-                <span asp-validation-for="modified_by" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="modified_date" class="control-label"></label>
-                <input asp-for="modified_date" class="form-control" />
-                <span asp-validation-for="modified_date" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="status" /> @Html.DisplayNameFor(model => model.status)
-                </label>
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="description" class="control-label"></label>
@@ -45,22 +23,35 @@
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                <input asp-for="name" class="form-control" />
-                <span asp-validation-for="name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="phone" class="control-label"></label>
                 <input asp-for="phone" class="form-control" />
                 <span asp-validation-for="phone" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="status" class="control-label"></label>
+            </div>
+            <div class="form-group" id="RadioButtonStatus">
+                <label class="control-label col-3" style="text-align:right">Active</label>
+                @Html.RadioButtonFor(m => m.status, true, new { id = "True" })
+
+                <label class="control-label col-3" style="text-align:right">Inactive</label>
+                @Html.RadioButtonFor(m => m.status, false, new { id = "False" })
+
+                <br />
+                <span asp-validation-for="status" class="text-danger" />
+            </div>
+
             <div class="form-group">
                 <label asp-for="id_enterprise" class="control-label"></label>
                 <select asp-for="id_enterprise" class="form-control" asp-items="ViewBag.id_enterprise"></select>
                 <span asp-validation-for="id_enterprise" class="text-danger"></span>
             </div>
+            <hr />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="hidden" asp-for="created_by" />
+                <input type="hidden" asp-for="created_date" />
+                <input type="submit" value="Edit Department" class="btn btn-warning" />
             </div>
         </form>
     </div>

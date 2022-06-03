@@ -5,58 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Create Employee</h1>
 
-<h4>EmployeeModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="created_by" class="control-label"></label>
-                <input asp-for="created_by" class="form-control" />
-                <span asp-validation-for="created_by" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="created_date" class="control-label"></label>
-                <input asp-for="created_date" class="form-control" />
-                <span asp-validation-for="created_date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="modified_by" class="control-label"></label>
-                <input asp-for="modified_by" class="form-control" />
-                <span asp-validation-for="modified_by" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="modified_date" class="control-label"></label>
-                <input asp-for="modified_date" class="form-control" />
-                <span asp-validation-for="modified_date" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="status" /> @Html.DisplayNameFor(model => model.status)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="age" class="control-label"></label>
-                <input asp-for="age" class="form-control" />
-                <span asp-validation-for="age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" class="form-control" />
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="name" class="control-label"></label>
                 <input asp-for="name" class="form-control" />
                 <span asp-validation-for="name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="position" class="control-label"></label>
-                <input asp-for="position" class="form-control" />
-                <span asp-validation-for="position" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="surname" class="control-label"></label>
@@ -64,7 +23,39 @@
                 <span asp-validation-for="surname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="age" class="control-label"></label>
+                <input type="number" asp-for="age" class="form-control" />
+                <span asp-validation-for="age" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="position" class="control-label"></label>
+                <input asp-for="position" class="form-control" />
+                <span asp-validation-for="position" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="status" class="control-label"></label>
+            </div>
+            <div class="form-group" id="RadioButtonStatus">
+                <label class="control-label col-3" style="text-align:right">Active</label>
+                @Html.RadioButtonFor(m => m.status, true, new { id = "True" })
+
+                <label class="control-label col-3" style="text-align:right">Inactive</label>
+                @Html.RadioButtonFor(m => m.status, false, new { id = "False" })
+
+                <br />
+                <span asp-validation-for="status" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create Employee" class="btn btn-primary" />
             </div>
         </form>
     </div>
